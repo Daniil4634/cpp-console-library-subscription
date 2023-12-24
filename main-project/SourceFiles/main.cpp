@@ -1,47 +1,54 @@
 #include <iostream>
+#include <iomanip>
+#include <vector>
 
 using namespace std;
 
-#include "book_subscription.h"
-#include "file_reader.h"
+#include "club_member.h"
 #include "constants.h"
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    cout << "Лабораторная работа №8. GIT\n";
-    cout << "Вариант №1. Результаты марафона\n";
-    cout << "Автор: Валентинович Даниил\n\n";
-    book_subscription* subscriptions[MAX_FILE_ROWS_COUNT];
-    int size;
-    try
+    cout << "Вывод результатов из клуба \"Спартак\"\n\n";
+  
+    vector<club_member> members;
+
+    // Добавить участников клуба
+    members.push_back(club_member("Иванов", "Иван", "Иванович", "2:30:10"));
+    members.push_back(club_member("Петров", "Петр", "Петрович", "3:05:20"));
+    members.push_back(club_member("Сидоров", "Сидор", "Сидорович", "2:40:50"));
+    members.push_back(club_member("Алексеев", "Алексей", "Алексеевич", "2:20:30"));
+    members.push_back(club_member("Смирнов", "Семен", "Семенович", "2:55:45"));
+
+    cout << "***** Участники клуба \"Спартак\" *****\n\n";
+
+    for (const club_member& member : members)
     {
-        read("data.txt", subscriptions, size);
-        for (int i = 0; i < size; i++)
+        /********** Вывод информации о члене клуба **********/
+        cout << "Фамилия: " << member.last_name << endl;
+        cout << "Имя: " << member.first_name << endl;
+        cout << "Отчество: " << member.middle_name << endl;
+        cout << "Результат: " << member.result << endl;
+      
+        cout << endl;
+    }
+
+    cout << "***** Участники с результатом лучше 2:50:00 *****\n\n";
+
+    for (const club_member& member : members)
+    {
+        /********** Вывод информации о члене клуба с результатом лучше 2:50:00 **********/
+        if (member.result < "2:50:00")
         {
-            cout << subscriptions[i]->reader.last_name << '\n';
-            cout << subscriptions[i]->reader.first_name << '\n';
-            cout << subscriptions[i]->reader.middle_name << '\n';
-            cout << subscriptions[i]->finish.day << ' ';
-            cout << subscriptions[i]->finish.month << ' ';
-            cout << subscriptions[i]->finish.year << '\n';
-            cout << subscriptions[i]->start.day << ' ';
-            cout << subscriptions[i]->start.month << ' ';
-            cout << subscriptions[i]->start.year << '\n';
-            cout << subscriptions[i]->author.last_name << '\n';
-            cout << subscriptions[i]->author.first_name << '\n';
-            cout << subscriptions[i]->author.middle_name << '\n';
-            cout << subscriptions[i]->title << '\n';
-            cout << '\n';
-        }
-        for (int i = 0; i < size; i++)
-        {
-            delete subscriptions[i];
+            cout << "Фамилия: " << member.last_name << endl;
+            cout << "Имя: " << member.first_name << endl;
+            cout << "Отчество: " << member.middle_name << endl;
+            cout << "Результат: " << member.result << endl;
+          
+            cout << endl;
         }
     }
-    catch (const char* error)
-    {
-        cout << error << '\n';
-    }
+
     return 0;
 }
