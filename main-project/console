@@ -1,0 +1,112 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct MarathonResult {
+    int номер;
+    string фамилия;
+    string имя;
+    string отчество;
+    string старт;
+    string финиш;
+    string клуб;
+};
+
+vector<MarathonResult> filterResults(const vector<MarathonResult>& results, const string& club) {
+    vector<MarathonResult> filteredResults;
+    for (const auto& result : results) {
+        if (result.клуб == club) {
+            filteredResults.push_back(result);
+        }
+    }
+    return filteredResults;
+}
+
+vector<MarathonResult> betterThan(const vector<MarathonResult>& results, const string& time) {
+    vector<MarathonResult> selectedResults;
+    for (const auto& result : results) {
+        if (result.финиш - result.старт < time) {
+            selectedResults.push_back(result);
+        }
+    }
+    return selectedResults;
+}
+
+void bubbleSort(vector<MarathonResult>& results) {
+    int n = results.size();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (results[j].финиш - results[j].старт > results[j + 1].финиш - results[j + 1].старт) {
+                swap(results[j], results[j + 1]);
+            }
+        }
+    }
+}
+
+void quickSort(vector<MarathonResult>& results) {
+    if (results.size() <= 1) {
+        return;
+    }
+    MarathonResult pivot = results[results.size() / 2];
+    vector<MarathonResult> less, equal, greater;
+    for (const auto& result : results) {
+        if (result.клуб < pivot.клуб) {
+            less.push_back(result);
+        } else if (result.клуб > pivot.клуб) {
+            greater.push_back(result);
+        } else {
+            equal.push_back(result);
+        }
+    }
+    quickSort(less);
+    quickSort(greater);
+    results.clear();
+    results.insert(results.end(), less.begin(), less.end());
+    results.insert(results.end(), equal.begin(), equal.end());
+    results.insert(results.end(), greater.begin(), greater.end());
+}
+
+int main() {
+    // Исходные результаты марафона (представлены в виде вектора структур)
+    vector<MarathonResult> results = {
+        {1, "Иванов", "Иван", "", "10:00:00", "11:00:00", "Спартак"},
+        {2, "Петров", "Петр", "", "09:30:00", "10:45:00", "Динамо"},
+        {3, "Смирнов", "Алексей", "", "09:45:00", "11:15:00", "Спартак"},
+        // ... остальные результаты ...
+    };
+
+    // Фильтрация данных для клуба "Спартак"
+    vector<MarathonResult> filteredResults = filterResults(results, "Спартак");
+    for (const auto& result : filteredResults) {
+        cout << result.номер << " " << result.фамилия << " " << result.имя << " "
+             << result.отчество << " " << result.старт << " " << result.финиш << " "
+             << result.клуб << endl;
+    }
+
+    // Отбор участников с результатом лучше чем 2:50:00
+    vector<MarathonResult> selectedResults = betterThan(results, "2:50:00");
+    for (const auto& result : selectedResults) {
+        cout << result.номер << " " << result.фамилия << " " << result.имя << " "
+             << result.отчество << " " << result.старт << " " << result.финиш << " "
+             << result.клуб << endl;
+    }
+
+    // Сортировка данных методом сортировки обменом (Bubble sort)
+    bubbleSort(results);
+    for (const auto& result : results) {
+        cout << result.номер << " " << result.фамилия << " " << result.имя << " "
+             << result.отчество << " " << result.старт << " " << result.финиш << " "
+             << result.клуб << endl;
+    }
+
+    // Сортировка данных методом быстрой сортировки (Quick sort)
+    quickSort(results);
+    for (const auto& result : results) {
+        cout << result.номер << " " << result.фамилия << " " << result.имя << " "
+             << result.отчество << " " << result.старт << " " << result.финиш << " "
+             << result.клуб << endl;
+    }
+
+    return 0;
+}
