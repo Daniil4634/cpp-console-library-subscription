@@ -91,5 +91,23 @@ int main() {
              << result.отчество << " " << result.старт << " " << result.финиш << " "
              << result.клуб << endl;
     }
+   // Сортировка данных методом сортировки обменом (Bubble sort)
+    bubbleSort(results);
+    for (const auto& result : results) {
+        cout << result.номер << " " << result.фамилия << " " << result.имя << " "
+             << result.отчество << " " << result.старт << " " << result.финиш << " "
+             << result.клуб << endl;
+    }
+
+    // Сортировка данных методом быстрой сортировки (Quick sort)
+    quickSort(results);
+    for (const auto& result : results) {
+        cout << result.номер << " " << result.фамилия << " " << result.имя << " "
+             << result.отчество << " " << result.старт << " " << result.финиш << " "
+             << result.клуб << endl;
+    }
+
+    return 0;
+}
 
  
