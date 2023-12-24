@@ -1,6 +1,4 @@
-#ifndef BOOK_SUBSCRIPTION_H
-#define BOOK_SUBSCRIPTION_H
-
+#include <stdio.h>
 #include "constants.h"
 
 struct date
@@ -26,4 +24,25 @@ struct book_subscription
     char title[MAX_STRING_SIZE];
 };
 
-#endif
+void display_participant_info(const struct book_subscription* subscription)
+{
+    printf("Номер: %s\n", subscription->reader.first_name);
+    printf("Фамилия: %s\n", subscription->reader.last_name);
+    printf("Имя: %s\n", subscription->reader.first_name);
+    printf("Отчество: %s\n", subscription->reader.middle_name);
+    printf("Старт: %02d.%02d.%d\n", subscription->start.day, subscription->start.month, subscription->start.year);
+    printf("Финиш: %02d.%02d.%d\n", subscription->finish.day, subscription->finish.month, subscription->finish.year);
+    printf("Клуб: %s\n", subscription->author.last_name);
+}
+
+int main()
+{
+    // Example usage
+    struct book_subscription subscription;
+    // Set the values of subscription
+    
+    // Display participant information
+    display_participant_info(&subscription);
+    
+    return 0;
+}
