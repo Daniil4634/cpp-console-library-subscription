@@ -12,7 +12,7 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
     cout << "Вывод результатов из клуба \"Спартак\"\n\n";
-
+  
     vector<club_member> members;
 
     // Добавить участников клуба
@@ -31,7 +31,7 @@ int main()
         cout << "Имя: " << member.first_name << endl;
         cout << "Отчество: " << member.middle_name << endl;
         cout << "Результат: " << member.result << endl;
-
+      
         cout << endl;
     }
 
@@ -46,11 +46,10 @@ int main()
             cout << "Имя: " << member.first_name << endl;
             cout << "Отчество: " << member.middle_name << endl;
             cout << "Результат: " << member.result << endl;
-
+          
             cout << endl;
         }
     }
 
     return 0;
 }
-
